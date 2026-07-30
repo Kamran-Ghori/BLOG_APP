@@ -135,6 +135,23 @@ class Data_Base{
         }
     }
 
+    
+async get_user_post(user_id){
+    try{
+        const result=this.table.listRows({
+            databaseId: conf.app_database_id,
+            tableId: conf.app_collection_id,
+            queries:[
+                Query.equal('userid',user_id),
+                
+            ]
+        })
+        console.log(result)
+        return result;
+    }catch(error){
+        console.log("no post found");
+    }
+}
 
  
 
@@ -170,6 +187,7 @@ class Data_Base{
     console.log(temp);
     return temp;
 }
+
 
 
 }

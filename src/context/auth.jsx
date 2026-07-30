@@ -12,7 +12,6 @@ const authSlicer= createSlice({
     reducers:{
         login:(state, action)=>{
 
-    console.log("Reducer payload:", action.payload);
     
             state.status=true;
             state.user_data=action.payload;

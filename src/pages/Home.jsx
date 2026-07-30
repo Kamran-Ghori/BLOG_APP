@@ -20,7 +20,7 @@ const [posts, setposts]=useState([]);
                 <Container>
                     <div className="flex flex-wrap">
                         <div className="p-2 w-full">
-                            <h1 className="text-2xl font-bold hover:text-gray-500">
+                            <h1 className="text-2xl font-bold text-slate-500 hover:text-slate-700 transition-colors">
                                 Login to read posts
                             </h1>
                         </div>
@@ -33,11 +33,11 @@ const [posts, setposts]=useState([]);
           return (
         <div className='w-full py-8'>
             <Container>
-                <div className='flex flex-wrap'>
+                <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6'>
             {posts.map((post) => { 
                 
                 return (
-                    <div key={post.$id} className='p-2 w-1/4'>
+                    <div key={post.$id} className='w-full'>
                         <Post_Card {...post} />
                     </div>
                 );

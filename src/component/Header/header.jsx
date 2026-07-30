@@ -28,8 +28,8 @@ function Header(){
             active:!user_login,
         },
         {
-            name:"All Post",
-            url:"/all-posts",
+            name:"My Postsq",
+            url:"/my-posts",
             active:user_login,
         },
         {
@@ -41,7 +41,7 @@ function Header(){
 
 
     return (
-        <header className="py-3 shadow bg-gray-500">
+        <header className="py-4 bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200 transition-all">
             <Container>
                 <nav className="flex">
                     <div className="mr-4">
@@ -52,7 +52,7 @@ function Header(){
                     <ul className="flex ml-auto">
                         {nav_items.map((item)=>( 
                             item.active && (<li key={item.name}> 
-                            <button  className="inline-block px-6 py-2 duration-200 hover:bg-blue-100 rounded-full " onClick={()=>{navigation(item.url)}}>{item.name}</button>
+                            <button  className="inline-block px-6 py-2 duration-200 hover:bg-slate-100 text-slate-700 font-medium rounded-full " onClick={()=>{navigation(item.url)}}>{item.name}</button>
                             </li>)
                         ))}
 

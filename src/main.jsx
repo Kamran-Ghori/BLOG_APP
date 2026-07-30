@@ -9,7 +9,7 @@ import Home from './pages/Home.jsx'
 import Protection from './component/auth_route.jsx'
 import Login from './pages/login_.jsx'
 import Sign_Up from './pages/Sign_up.jsx'
-import All_Post from './pages/all_post.jsx'
+import My_Posts from './pages/all_post.jsx'
 import Edit_Post from './pages/Edit_page.jsx'
 import Post from './pages/post.jsx'
 import Add_Post from './pages/add_post.jsx'
@@ -39,10 +39,10 @@ const router=createBrowserRouter([
       )
     },
     {
-      path:'/all-posts',
+      path:'/my-posts',
       element:(
         <Protection authenticated={true} >
-          <All_Post/>
+          <My_Posts/>
         </Protection>
       )
     },
