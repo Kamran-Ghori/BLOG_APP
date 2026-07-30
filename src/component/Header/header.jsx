@@ -28,7 +28,7 @@ function Header(){
             active:!user_login,
         },
         {
-            name:"My Postsq",
+            name:"My Posts",
             url:"/my-posts",
             active:user_login,
         },

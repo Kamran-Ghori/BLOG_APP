@@ -20,15 +20,8 @@ const user_data_=useSelector((state)=>state.Auth);
    const temp=user_data_.user_data;
 let isAuthor=false;
 
-// console.log(`post: ${post}`);
-// if(post){console.log(`post id: ${post.$id}`)}
-// console.log(`id:  ${id}`);
-// console.log(`user_data_.status ${user_data_.status}`);
-// console.log(`temp: ${temp}`);
-// console.log(`temp.$id: ${temp.$id} `)
-
     if(post && id && user_data_.status && (post.userid ===temp.$id))isAuthor=true;
-// console.log(isAuthor);
+
 
     useEffect(()=>{
         if(id){
@@ -59,12 +52,12 @@ let isAuthor=false;
                     {isAuthor && (
                         <div className="absolute right-6 top-6">
                             <Link to={`/edit-post/${post.$id}`}>
-                                <Button bgColor="bg-green-500" className="mr-3">
+                                <Button bgColor="bg-green-500" className="mr-3 h-10 w-30 rounded-4xl ">
                                     Edit
                                 </Button>
                             </Link>
-                            <Button bgColor="bg-red-500" onClick={deletepost}>
-                                Delete
+                            <Button bgColor="bg-red-500 mr-3 h-10 w-30 rounded-4xl "onClick={deletepost}>
+                               Delete
                             </Button>
                         </div>
                     )}
