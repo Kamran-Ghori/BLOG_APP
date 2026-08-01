@@ -14,30 +14,137 @@ class Data_Base{
         this.bucket=new Storage(this.client);
     }
 
-       async upload_image(file){
-        try{
-            const result=await this.bucket.createFile({
-                bucketId: conf.app_bucket_id,
-                fileId: ID.unique(),
-                file,
+
+//     async to_choose_delete_function(File){
+//         console.log(File);
+//         if(!Array.isArray(File)){
+//             console.log(`single image`);
+//           return  await this.delete_images(File);
+        
+//         }else{
+//             console.log(`MULTIPLE image`);
+//           return  await this.delete_image(File);
+//         }
+//     }
+
+    
+//       async delete_image(file){
+//           try{
+//             console.log(File);
+         
+//                 const result=await this.Storage.deleteFile(
+//                     conf.app_bucket_id,
+//                     file
+//                 );
+//                 console.log(result);
+//                 return result;
+// }catch(error){
+//             return false;
+//         }
+//     }
+
+
+//       async delete_images(File){
+//           try{
+//             console.log(File);
+//             console.log(typeof(File));
+//           const results=await Promise.all(
+//             Array.from(File).map(async (file)=>{
+//                 const result=await this.Storage.deleteFile(
+//                     conf.app_bucket_id,
+//                     file,
+//                 );
+//                 console.log(result);
+//                 return result;
+//             })
+//         )
+//         return results;
+// }catch(error){
+//             return false;
+//         }
+//     }
+
+async to_choose_delete_function(file) {
+    console.log(file);
+
+    if (Array.isArray(file)) {
+        console.log("MULTIPLE images");
+        return this.delete_images(file);
+    } else {
+        console.log("SINGLE image");
+        return this.delete_image(file);
+    }
+}
+
+async delete_image(file) {
+    try {
+        console.log(file);
+
+        const result = await this.Storage.deleteFile(
+            conf.app_bucket_id,
+            file
+        );
+
+        console.log(result);
+        return result;
+    } catch (error) {
+        console.log(error);
+        return false;
+    }
+}
+
+async delete_images(files) {
+    try {
+        console.log(files);
+        console.log(typeof files);
+
+        const results = await Promise.all(
+            files.map(async (file) =>{
+                console.log(file);
+                console.log(typeof(file));
+                 const result = await this.bucket.deleteFile(
+                    conf.app_bucket_id,
+                    file,
+                )
+                return result;
+            }
+            )
+        );
+
+        console.log(results);
+        return results;
+    } catch (error) {
+        console.log(error);
+        return false;
+    }
+}
+
+       async upload_image(File){
+      try{
+        const results = await Promise.all(
+            Array.from(File).map(async (file)=>{
+                const result=await this.bucket.createFile(
+                    conf.app_bucket_id ,
+                    ID.unique(),
+                    file,
+                );
+                return result.$id;
             })
-            console.log("hui pic upload");
-            console.log(result);
-            return result.$id;
-        }catch(error){
-            console.log("nahy hui pic upload");
-            return null;
-        }
+        )
+        console.log("hui pic upload");
+        console.log(results);
+        return results;
+
+      }catch(error){
+        console.log(error);
+        return false;
+      }
     }
 
 
-    async upload_blog({title, content, image, status, slug },userid){
-        console.log(`upload blog is called`);
-         let image_id=null
-      try{ 
-         image_id=(image)?await this.upload_image(image[0]):null;
-        console.log(image_id);
-        console.log(userid);
+    async upload_blog({title, content, status, slug },userid,Image){
+        
+      try{
          const result=await this.table.createRow({
              databaseId: conf.app_database_id,
             tableId: conf.app_collection_id,
@@ -48,27 +155,20 @@ class Data_Base{
                 status,
                 slug,
                 userid,
-                image: image_id,
+                image:Array.from(Image),
             }
         });
-        console.log(result.$id);
+        console.log(result);
         return result;
     }catch(error){
-
-        console.log("agay error");
-
-       if(image_id) await this.delete_image(image_id);
-            
-            return false;
-        }
-
+        this.to_choose_delete_function(Image);
+        return false;
     }
+     }
 
-    async update_post(id,{title, content, status, userid, slug },image){
+    async update_post(id,{title, content, status, userid, slug },Image){
             
       try{ 
-        //  image_id=(image.length>0)?await this.upload_image(image[0]):null;
-        //  console.log(image.length);
              const result=await this.table.updateRow({
              databaseId: conf.app_database_id,
             tableId: conf.app_collection_id,
@@ -79,23 +179,24 @@ class Data_Base{
                 content,
                 status,
                 userid,
-                image:image,
+                image:Array.from(Image),
             }
         })
+        console.log("post has been updated successfully");
         return true;
     }catch(error){
-            // if(image_id) await this.delete_image(image_id);
-            return false;
+        this.to_choose_delete_function(Image);
+        return false;
         
         }
     }
 
-    async delete_post(id){
+      async delete_post(file){
           try{
             const result=await this.table.deleteRow({
              databaseId: conf.app_database_id,
             tableId: conf.app_collection_id,
-            rowId: id,
+            rowId: file,
         })
     return result;
 }catch(error){
@@ -104,6 +205,7 @@ class Data_Base{
         }
     }
 
+  
     async get_post(id){
          try{  
             const result=await this.table.getRow({
@@ -154,20 +256,6 @@ async get_user_post(user_id){
 }
 
  
-
-    async delete_image(fileId){
-        console.log(fileId);
-        try{
-            await this.bucket.deleteFile({
-              bucketId: conf.app_bucket_id,
-                fileId,
-           })
-           return true;
-        }catch(error){
-            console.log(error);
-            return false;
-        }
-    }
 
     //  get_image_preview(fileId){
     //         const result=   this.bucket.getFileView({

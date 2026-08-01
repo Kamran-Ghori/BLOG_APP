@@ -14,21 +14,6 @@ export default function SignUp(){
     const navigation=useNavigate();
     const dispatched=useDispatch();
 
-    
-    // const sign_up=async(data)=>{
-    //     seterror("");
-    //   try { 
-    //     const result=await authentication.signup({...data});
-    //     if(result){
-    //         dispatched(authlogin(result));
-    //         navigation("/");
-    //     }
-    // }catch(error){
-    //    console.log("mummy nhay huwa ");
-    //    console.log(error);
-    //     seterror(error);
-    // }
-    // }
     const sign_up = async (data) => {
     seterror("");
     try {

@@ -7,6 +7,7 @@ import Input from "./input"
 import RTE from "./RTE"
 import Select from "./select"
 import Button from "./button";
+import { Databases } from "appwrite";
 export default function Post_Form({post}){
     const {register,handleSubmit,control,watch,setValue,getValues}=useForm({
         defaultValues:{
@@ -19,55 +20,59 @@ export default function Post_Form({post}){
     const navigation=useNavigate();
     const user_data=useSelector((state)=>state.Auth.user_data);
 
-    const submit = (data) => {
+const submit = async (data) => {
 
 
 if(post){
 
+    console.log(post);
     let image_id=post.image;
-    if(data.image.length>0){
+console.log(image_id);
 
-        data_base.upload_image(data.image[0])
-       .then((newid)=>{
-        data_base.update_post(post.$id,{...data},newid)
-        .then((status)=>{
-            if(!status){
-                data_base.delete_image(newid)
-                navigation(`/post/${temp.$id}`);
-            }
+console.log(data.image.length);
 
-            data_base.delete_image(post.image);
 
-                navigation(`/post/${post.$id}`);
-        })
-       })
-        .catch(console.error);
+          if (data.image.length > 0) {
+        try {
+            const response = await data_base.upload_image(data.image);
+            console.log(response);
+            console.log("new images uploaded");
+
+            await data_base.to_choose_delete_function(image_id);
+            console.log("prev image got deleted");
+
+            image_id = response;
+        } catch (error) {
+            console.log("image handling failed", error);
+        }
     }
 
-      
-else{
-    data_base.update_post(post.$id,{...data},image_id)
-    .then((status)=>{
-        if(status){
-         navigation(`/post/${post.$id}`);
-        }else{
-            console.log("phase");
-        }
-    }).catch((error)=>(console.log(error)));}
-    
+    console.log(image_id);
+
+ 
+    try {
+        const res = await data_base.update_post(post.$id,{...data},image_id);
+        console.log(res);
+        navigation(`/post/${res.$id}`);
+    } catch (error) {
+        console.log("post has not been updated");
+    }
 }
-    
+
     else {
-        data_base.upload_blog({ ...data }, user_data.$id)
-            .then((temp) => {
-                if (temp) {
-                    navigation(`/post/${temp.$id}`);
-                } else {
-                }
+
+        data_base.upload_image(data.image)
+        .then((res)=>{
+            data_base.upload_blog({...data},user_data.$id,res)
+            .then((res)=>{
+                console.log(res);
+                navigation(`/post/${res.$id}`);   
             })
             .catch((error) => {
-                console.error(error);
-            });
+            })
+        }).catch((error) => {
+             })
+
     }
 
 };
@@ -83,8 +88,7 @@ else{
             console.log(`name: ${name}`);
             console.log(`value: ${value}`);
             if(name === "title"){
-                console.log(`helo`)
-                console.log(slug_transformation(value.title));
+                 console.log(slug_transformation(value.title));
                     setValue("slug",slug_transformation(value.title),{shouldValidate:true})
             }
             return;
@@ -119,6 +123,7 @@ className='mb-4'
 <Input  label="Featured Image :"
                     type="file"
                     className="mb-4"
+                    multiple
                    accept="image/png, image/jpg, image/jpeg, image/gif"
                     {...register("image", { required: !post })}
  />

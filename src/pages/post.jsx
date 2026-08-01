@@ -13,8 +13,8 @@ export default function Post(){
     const [post,setpost]=useState(null);
     const navigation =useNavigate();
     const {id} = useParams();
-
-    // console.log(id);
+    console.log("we are in the post");
+      console.log(id);
 
 const user_data_=useSelector((state)=>state.Auth);
    const temp=user_data_.user_data;
@@ -33,9 +33,10 @@ let isAuthor=false;
         }else navigation("/");
     },[id,navigation])
 
-    const deletepost=()=>{
-        data_base.delete_image(post.image);
-        data_base.delete_post(post.$id);
+    const deletepost=async ()=>{
+        await data_base.to_choose_delete_function(post.image);
+
+        await data_base.delete_post(post.$id);
         navigation('/');
     }
 

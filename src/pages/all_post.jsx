@@ -12,7 +12,6 @@ export default function My_Posts(){
     useEffect(()=>{
         const temp= data_base.get_user_post(data.$id)
         .then((post)=>{
-            console.log(post);
             (setposts(post.rows))
         });
     },[])

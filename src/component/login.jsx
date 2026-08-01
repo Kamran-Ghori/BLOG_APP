@@ -28,7 +28,6 @@ const login_ = async (data) => {
         const user = await authentication.get_curr_user();
 
         if (user) {
-            console.log(`user is: ${user}`);
             dispatched(authlogin(user));
             navigation("/");
         }
