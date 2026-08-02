@@ -72,7 +72,6 @@ let isAuthor=false;
                     {index + 1}/{post.image.length}
                 </div>
 
-                {/* Buttons */}
                 {isAuthor && (
                     <div className="absolute top-4 left-4 z-20 flex gap-3">
                         <Link to={`/edit-post/${post.$id}`}>
