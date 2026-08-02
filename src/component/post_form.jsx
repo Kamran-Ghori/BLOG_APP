@@ -8,6 +8,10 @@ import RTE from "./RTE"
 import Select from "./select"
 import Button from "./button";
 import { Databases } from "appwrite";
+import { useState } from "react";
+
+import {Swiper, SwiperSlide} from "swiper/react"
+import "swiper/css";
 export default function Post_Form({post}){
     const {register,handleSubmit,control,watch,setValue,getValues}=useForm({
         defaultValues:{
@@ -19,6 +23,9 @@ export default function Post_Form({post}){
     })
     const navigation=useNavigate();
     const user_data=useSelector((state)=>state.Auth.user_data);
+    
+    
+          const [index,setindex]=useState(0);
 
 const submit = async (data) => {
 
@@ -38,7 +45,7 @@ console.log(data.image.length);
             console.log(response);
             console.log("new images uploaded");
 
-            await data_base.to_choose_delete_function(image_id);
+            await data_base.delete_images(image_id);
             console.log("prev image got deleted");
 
             image_id = response;
@@ -129,13 +136,28 @@ className='mb-4'
  />
  
  {post && (
-    <div className="w-full mb-4">
-        <img
-        src={data_base.get_image_preview(post.image)}
-        alt={post.title}
-        className="rounded-lg"
-        />
-     </div>
+   
+    <div className="relative w-full mb-4 overflow-hidden rounded-xl aspect-video">
+
+<Swiper
+onSlideChange={(swiper)=> setindex(swiper.activeIndex)}>
+    {post.image.map((img, i) => (
+        <SwiperSlide key={i}>
+          
+            <img
+                src={data_base.get_image_preview(img)}
+                alt=""
+                className="z-0"
+            >
+            </img>
+           
+        </SwiperSlide>
+    ))}
+    <div className="z-40 absolute top-3 left-3 bg-black/60 text-white px-2 py-1 rounded-full text-xs">
+        {index+1}/{post.image.length}
+    </div>
+</Swiper>
+</div>
  )}
 
  <Select 

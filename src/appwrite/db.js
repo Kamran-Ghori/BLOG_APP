@@ -15,84 +15,6 @@ class Data_Base{
     }
 
 
-//     async to_choose_delete_function(File){
-//         console.log(File);
-//         if(!Array.isArray(File)){
-//             console.log(`single image`);
-//           return  await this.delete_images(File);
-        
-//         }else{
-//             console.log(`MULTIPLE image`);
-//           return  await this.delete_image(File);
-//         }
-//     }
-
-    
-//       async delete_image(file){
-//           try{
-//             console.log(File);
-         
-//                 const result=await this.Storage.deleteFile(
-//                     conf.app_bucket_id,
-//                     file
-//                 );
-//                 console.log(result);
-//                 return result;
-// }catch(error){
-//             return false;
-//         }
-//     }
-
-
-//       async delete_images(File){
-//           try{
-//             console.log(File);
-//             console.log(typeof(File));
-//           const results=await Promise.all(
-//             Array.from(File).map(async (file)=>{
-//                 const result=await this.Storage.deleteFile(
-//                     conf.app_bucket_id,
-//                     file,
-//                 );
-//                 console.log(result);
-//                 return result;
-//             })
-//         )
-//         return results;
-// }catch(error){
-//             return false;
-//         }
-//     }
-
-async to_choose_delete_function(file) {
-    console.log(file);
-
-    if (Array.isArray(file)) {
-        console.log("MULTIPLE images");
-        return this.delete_images(file);
-    } else {
-        console.log("SINGLE image");
-        return this.delete_image(file);
-    }
-}
-
-async delete_image(file) {
-    try {
-        console.log(file);
-
-        const result = await this.Storage.deleteFile(
-            conf.app_bucket_id,
-            file
-        );
-
-        console.log(result);
-        return result;
-    } catch (error) {
-        console.log(error);
-        return false;
-    }
-}
-
 async delete_images(files) {
     try {
         console.log(files);
@@ -185,7 +107,7 @@ async delete_images(files) {
         console.log("post has been updated successfully");
         return true;
     }catch(error){
-        this.to_choose_delete_function(Image);
+        this.delete_images(Image);
         return false;
         
         }
@@ -257,17 +179,8 @@ async get_user_post(user_id){
 
  
 
-    //  get_image_preview(fileId){
-    //         const result=   this.bucket.getFileView({
-    //             bucketId:conf.app_bucket_id,
-    //             fileId,
-    //         })
-    //         console.log(result);
-    //         return result;
-      
-    // }
-
     get_image_preview(fileId){
+        console.log(fileId);
     const temp= this.bucket.getFileView({
         bucketId: conf.app_bucket_id,
         fileId,

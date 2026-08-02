@@ -5,6 +5,7 @@ const conf={
     app_database_id:String(import.meta.env.VITE_DATABASE_ID),
     app_collection_id:String(import.meta.env.VITE_COLLECTION_ID),
     app_bucket_id:String(import.meta.env.VITE_BUCKET_ID),
+    RTE_API:String(import.meta.env.VITE_RTE_API),
 }
 
 export default conf

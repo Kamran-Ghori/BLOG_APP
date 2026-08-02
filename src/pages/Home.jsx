@@ -9,7 +9,7 @@ export default function Home(){
 const [posts, setposts]=useState([]);
     useEffect(()=>{
         const temp= data_base.get_all_posts()
-        .then((post_response)=>{ 
+        .then((post_response)=>{
             setposts(post_response.rows);
     });
     },[])
