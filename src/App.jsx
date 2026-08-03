@@ -21,11 +21,12 @@
             console.log(`The user is Created sucessfully`);
                     console.log(userData);
             dispatch(login(userData))
+            setLoading(false);
           } else {
             dispatch(logout())
+            setLoading(false);
           }
         })
-        .finally(() => setLoading(false))
       }, [])
       
 
