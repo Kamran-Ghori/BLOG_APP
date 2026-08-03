@@ -63,7 +63,7 @@ async login_google(){
         try{
             return await this.account.getSession(
                 {
-                    seessionId:'current'
+                    sessionId:'current'
                 }
             );
         }catch(error){
