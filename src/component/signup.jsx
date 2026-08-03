@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import authentication from "../appwrite/auth"
 import { Link,useNavigate } from "react-router-dom";
@@ -13,6 +13,17 @@ export default function SignUp(){
     const [error,seterror]=useState("");
     const navigation=useNavigate();
     const dispatched=useDispatch();
+
+    const login_submit=async ()=>{
+        console.log(`aya`);
+        try{
+            const result=await authentication.login_google();
+           
+        }catch(error){
+            console.log(`login fails`);
+        }
+        return;
+    }
 
     const sign_up = async (data) => {
     seterror("");
@@ -36,6 +47,8 @@ export default function SignUp(){
         }
     }
 };
+
+
 return (
     <div className="flex items-center justify-center">
             <div className={`mx-auto w-full max-w-lg bg-gray-100 rounded-xl p-10 border border-black/10`}>
@@ -89,8 +102,18 @@ return (
                          <Button type="submit" className="w-full">
                             Create Account
                         </Button>
+                        <div>
+                         
+                        </div>
                            </div>
                 </form>
+              
+                 <Button   type="submit" onClick={login_submit} className="w-full flex justify-center-safe gap-10" >
+                               <img className="h-5 w-7 "  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJKueq1tsHBNK-60iE4zuAMN8scsdu8Uy4ak9C7_S0nQ&s=10"></img>
+                        
+                            Continue with Google
+                        </Button>
+                       
             </div>
 
     </div>

@@ -16,6 +16,9 @@ function App() {
     authentication.get_curr_user()
     .then((userData) => {
       if (userData) {
+        console.log(`The user is Created sucessfully`);
+                console.log(userData);
+        
         dispatch(login(userData))
       } else {
         dispatch(logout())
@@ -24,6 +27,7 @@ function App() {
     .finally(() => setLoading(false))
   }, [])
   
+
   return !loading ? (
     <div className='min-h-screen flex flex-wrap content-between bg-slate-50 text-slate-900 font-sans'>
       <div className='w-full block'>

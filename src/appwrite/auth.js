@@ -1,5 +1,5 @@
 import conf from "../config/config";
-import {Client, Account, ID} from   "appwrite"
+import {Client, Account, ID, OAuthProvider} from   "appwrite"
 
 class Authentication{
     client = new Client;
@@ -37,9 +37,35 @@ class Authentication{
     }
 }
 
+async login_google(){
+    console.log(`thaaaaaaaaaaaaaaaaaa`);
+    try{
+        return this.account.createOAuth2Session({
+            provider: OAuthProvider.Google,
+            success:'https://blog-app-rlva.vercel.app/',
+            failure:'https://blog-app-rlva.vercel.app/signup',
+            scopes:['openid','email','profile'],
+        })
+    }catch(error){
+        console.log(`sign up wiht google fails`);
+    }
+}
     async get_curr_user(){
+        console.log(`get info called`);
         try{
             return await this.account.get();
+        }catch(error){
+        return null;
+        }
+    }
+
+     async get_auth_user(){
+        try{
+            return await this.account.getSession(
+                {
+                    seessionId:'current'
+                }
+            );
         }catch(error){
         return null;
         }
