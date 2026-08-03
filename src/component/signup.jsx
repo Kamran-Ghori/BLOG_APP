@@ -15,10 +15,8 @@ export default function SignUp(){
     const dispatched=useDispatch();
 
     const login_submit=async ()=>{
-        console.log(`aya`);
         try{
             const result=await authentication.login_google();
-           
         }catch(error){
             console.log(`login fails`);
         }

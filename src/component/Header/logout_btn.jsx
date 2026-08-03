@@ -9,11 +9,6 @@ export default function Logout_btn(){
   const dispatched = useDispatch();
   const navigation=useNavigate();
     const handler=()=>{
-      //   if((  authentication.logout())){
-      //   dispatched(logout());
-      //   navigation('/');
-      // }
-
       authentication.logout()
       .then((res)=>{
         if(res){

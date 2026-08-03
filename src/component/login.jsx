@@ -18,6 +18,16 @@ export default function Login(){
     const navigation = useNavigate();
     const dispatched = useDispatch();
 
+ const login_submit=async ()=>{
+        try{
+            const result=await authentication.login_google();
+           
+        }catch(error){
+            console.log(`login fails`);
+        }
+        return;
+    }
+
 
 const login_ = async (data) => {
     seterror("");
@@ -100,6 +110,14 @@ return (
                 >Sign in</Button>
             </div>
         </form>
+
+<div className="pt-5">
+        <Button   type="submit" onClick={login_submit} className="w-full flex justify-center-safe " >
+                                       <img className="h-5 w-7 "  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJKueq1tsHBNK-60iE4zuAMN8scsdu8Uy4ak9C7_S0nQ&s=10"></img>
+                                
+                                    Continue with Google
+                                </Button>
+                                </div>
         </div>
     </div>
   )

@@ -17,8 +17,6 @@ export default function Post(){
     const [post,setpost]=useState(null);
     const navigation =useNavigate();
     const {id} = useParams();
-    console.log("we are in the post");
-      console.log(id);
 
 const user_data_=useSelector((state)=>state.Auth);
    const temp=user_data_.user_data;

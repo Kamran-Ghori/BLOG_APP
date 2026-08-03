@@ -23,40 +23,26 @@ export default function Post_Form({post}){
     })
     const navigation=useNavigate();
     const user_data=useSelector((state)=>state.Auth.user_data);
-    
-    
-          const [index,setindex]=useState(0);
+    const [index,setindex]=useState(0);
 
 const submit = async (data) => {
 
-
 if(post){
 
-    console.log(post);
     let image_id=post.image;
-console.log(image_id);
 
-console.log(data.image.length);
-
-
-          if (data.image.length > 0) {
+    if (data.image.length > 0) {
         try {
             const response = await data_base.upload_image(data.image);
-            console.log(response);
             console.log("new images uploaded");
-
             await data_base.delete_images(image_id);
             console.log("prev image got deleted");
-
             image_id = response;
         } catch (error) {
             console.log("image handling failed", error);
         }
     }
 
-    console.log(image_id);
-
- 
     try {
         const res = await data_base.update_post(post.$id,{...data},image_id);
         console.log(res);
@@ -72,7 +58,6 @@ console.log(data.image.length);
         .then((res)=>{
             data_base.upload_blog({...data},user_data.$id,res)
             .then((res)=>{
-                console.log(res);
                 navigation(`/post/${res.$id}`);   
             })
             .catch((error) => {
@@ -92,10 +77,8 @@ console.log(data.image.length);
 
     useEffect(()=>{ 
         const subscription=watch((value, {name,type})=>{
-            console.log(`name: ${name}`);
-            console.log(`value: ${value}`);
+           
             if(name === "title"){
-                 console.log(slug_transformation(value.title));
                     setValue("slug",slug_transformation(value.title),{shouldValidate:true})
             }
             return;

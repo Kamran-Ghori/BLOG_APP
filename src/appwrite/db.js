@@ -17,13 +17,10 @@ class Data_Base{
 
 async delete_images(files) {
     try {
-        console.log(files);
-        console.log(typeof files);
 
         const results = await Promise.all(
             files.map(async (file) =>{
-                console.log(file);
-                console.log(typeof(file));
+               
                  const result = await this.bucket.deleteFile(
                     conf.app_bucket_id,
                     file,
@@ -33,7 +30,6 @@ async delete_images(files) {
             )
         );
 
-        console.log(results);
         return results;
     } catch (error) {
         console.log(error);
@@ -53,8 +49,6 @@ async delete_images(files) {
                 return result.$id;
             })
         )
-        console.log("hui pic upload");
-        console.log(results);
         return results;
 
       }catch(error){
@@ -80,7 +74,6 @@ async delete_images(files) {
                 image:Array.from(Image),
             }
         });
-        console.log(result);
         return result;
     }catch(error){
         this.to_choose_delete_function(Image);
@@ -104,7 +97,6 @@ async delete_images(files) {
                 image:Array.from(Image),
             }
         })
-        console.log("post has been updated successfully");
         return true;
     }catch(error){
         this.delete_images(Image);
@@ -135,7 +127,6 @@ async delete_images(files) {
             tableId: conf.app_collection_id,
             rowId: id,
         })
-        // console.log(`result aya: ${result}`);
         return result;
 
       }catch(error){
@@ -170,7 +161,6 @@ async get_user_post(user_id){
                 
             ]
         })
-        console.log(result)
         return result;
     }catch(error){
         console.log("no post found");
@@ -180,12 +170,10 @@ async get_user_post(user_id){
  
 
     get_image_preview(fileId){
-        console.log(fileId);
     const temp= this.bucket.getFileView({
         bucketId: conf.app_bucket_id,
         fileId,
     });
-    console.log(temp);
     return temp;
 }
 

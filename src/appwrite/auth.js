@@ -38,11 +38,10 @@ class Authentication{
 }
 
 async login_google(){
-    console.log(`thaaaaaaaaaaaaaaaaaa`);
     try{
         return this.account.createOAuth2Session({
             provider: OAuthProvider.Google,
-            success:'https://blog-app-rlva.vercel.app/',
+            success:'http://localhost:5174/',
             failure:'https://blog-app-rlva.vercel.app/signup',
             scopes:['openid','email','profile'],
         })
@@ -51,7 +50,6 @@ async login_google(){
     }
 }
     async get_curr_user(){
-        console.log(`get info called`);
         try{
             return await this.account.get();
         }catch(error){

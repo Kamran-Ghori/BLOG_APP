@@ -11,18 +11,12 @@ const authSlicer= createSlice({
     initialState,
     reducers:{
         login:(state, action)=>{
-
-    
             state.status=true;
             state.user_data=action.payload;
-
-    console.log("Stored user:", state.user_data);
-    console.log("Stored id:", state.user_data.$id);
         },
         logout:(state)=>{
            state. status=false;
             state.user_data=null;
-            
         }
     }
 })

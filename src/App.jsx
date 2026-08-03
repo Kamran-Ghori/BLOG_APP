@@ -9,32 +9,16 @@
     import authentication from './appwrite/auth';
     function App() {
 
-      console.log(`directed to the home page`);
       
       const [loading, setLoading] = useState(true)
       const dispatch = useDispatch();
 
-  //      const checkUser = async () => {
-  //   const userData = await authentication.get_curr_user();
-
-  //   if (userData) {
-  //     dispatch(login(userData));
-  //   } else {
-  //     dispatch(logout());
-  //   }
-
-  //   setLoading(false);
-  // };
-
 
       useEffect(() => {
         const check_user=async()=>{
-
             const userData = await authentication.get_curr_user()
        
           if(userData) {
-            console.log(`The user is Created sucessfully`);
-                    console.log(userData);
             dispatch(login(userData))
             
           }else{
