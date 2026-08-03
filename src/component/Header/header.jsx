@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 function Header(){
 
     const user_login=useSelector((state)=>state.Auth.status);
-    
+    console.log(user_login);
     const navigation = useNavigate();
     const nav_items=[
         {
