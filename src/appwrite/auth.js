@@ -41,7 +41,7 @@ async login_google(){
     try{
         return this.account.createOAuth2Session({
             provider: OAuthProvider.Google,
-            success:'http://localhost:5174/',
+            success:'https://blog-app-rlva.vercel.app/',
             failure:'https://blog-app-rlva.vercel.app/signup',
             scopes:['openid','email','profile'],
         })
