@@ -42,16 +42,16 @@ function Header(){
     return (
         <header className="py-4 bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200 transition-all">
             <Container>
-                <nav className="flex">
-                    <div className="mr-4">
+                <nav className="flex flex-wrap items-center gap-y-3">
+                    <div className="mr-4 shrink-0">
                         <Link to="/">
                         <Logo width="70px"/>
                         </Link>
                     </div>
-                    <ul className="flex ml-auto">
+                    <ul className="ml-auto flex flex-wrap justify-end gap-1">
                         {nav_items.map((item)=>( 
                             item.active && (<li key={item.name}> 
-                            <button  className="inline-block px-6 py-2 duration-200 hover:bg-slate-100 text-slate-700 font-medium rounded-full " onClick={()=>{navigation(item.url)}}>{item.name}</button>
+                            <button  className="inline-block px-2 py-2 text-sm duration-200 hover:bg-slate-100 text-slate-700 font-medium rounded-full sm:px-4 sm:text-base" onClick={()=>{navigation(item.url)}}>{item.name}</button>
                             </li>)
                         ))}
 

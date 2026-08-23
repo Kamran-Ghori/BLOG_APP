@@ -65,7 +65,7 @@ return (
  <div
     className='flex items-center justify-center w-full'
     >
-        <div className={`mx-auto w-full max-w-lg bg-gray-100 rounded-xl p-10 border border-black/10`}>
+        <div className={`mx-auto w-full max-w-lg rounded-xl border border-black/10 bg-gray-100 p-5 sm:p-10`}>
         <div className="mb-2 flex justify-center">
                     <span className="flex w-full  justify-center">
                         <Logo width="100%" />

@@ -90,8 +90,8 @@ if(post){
 
 
     return (
-        <form onSubmit={handleSubmit(submit)} className="flex flex-wrap">
-            <div className="w-2/3 px-2">
+        <form onSubmit={handleSubmit(submit)} className="flex flex-wrap gap-y-4">
+            <div className="w-full px-2 lg:w-2/3">
             <Input  label="Title :"
                     placeholder="Title"
                     className="mb-4"
@@ -109,7 +109,7 @@ className='mb-4'
 
 <RTE label="Content: " name="content" control={control} default_value={getValues("content")} />
             </div>
-                        <div className="w-1/3 px-2">
+                        <div className="w-full px-2 lg:w-1/3">
 <Input  label="Featured Image :"
                     type="file"
                     className="mb-4"

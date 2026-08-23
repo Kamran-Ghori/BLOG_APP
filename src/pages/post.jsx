@@ -43,7 +43,7 @@ let isAuthor=false;
     }
 
     return post ? (
-       <div className="py-10 px-6">
+    <div className="px-2 py-6 sm:px-6 sm:py-10">
     <Container>
         <div className="max-w-5xl mx-auto bg-white rounded-3xl shadow-xl overflow-hidden">
 
@@ -54,7 +54,7 @@ let isAuthor=false;
                 >
                     {post.image.map((img, i) => (
                         <SwiperSlide key={i}>
-                            <div className="h-[500px] flex items-center justify-center">
+                            <div className="flex h-64 items-center justify-center sm:h-[500px]">
                                 <img
                                     src={data_base.get_image_preview(img)}
                                     alt=""
@@ -71,16 +71,16 @@ let isAuthor=false;
                 </div>
 
                 {isAuthor && (
-                    <div className="absolute top-4 left-4 z-20 flex gap-3">
+                    <div className="absolute left-3 top-3 z-20 flex gap-2 sm:left-4 sm:top-4 sm:gap-3">
                         <Link to={`/edit-post/${post.$id}`}>
-                            <Button className="bg-green-600 hover:bg-green-700 rounded-full px-6 py-2">
+                            <Button className="rounded-full bg-green-600 px-3 py-2 text-sm hover:bg-green-700 sm:px-6 sm:text-base">
                                 Edit
                             </Button>
                         </Link>
 
                         <Button
                             onClick={deletepost}
-                            className="bg-red-600 hover:bg-red-700 rounded-full px-6 py-2"
+                            className="rounded-full bg-red-600 px-3 py-2 text-sm hover:bg-red-700 sm:px-6 sm:text-base"
                         >
                             Delete
                         </Button>
@@ -89,8 +89,8 @@ let isAuthor=false;
             </div>
 
             {/* Content */}
-            <div className="p-8">
-                <h1 className="text-4xl font-bold text-slate-800 mb-6">
+            <div className="p-4 sm:p-8">
+                <h1 className="mb-6 text-2xl font-bold text-slate-800 sm:text-4xl">
                     {post.title}
                 </h1>
 

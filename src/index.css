@@ -6,3 +6,19 @@ body {
   background-color: #f8fafc; /* slate-50 */
   color: #0f172a; /* slate-900 */
 }
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+img,
+video,
+iframe {
+  max-width: 100%;
+}
+
+main {
+  min-width: 0;
+}
